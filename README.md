@@ -1,6 +1,5 @@
 # BTE-FishFeeder
-
-<h2>Judul</h2>
+<h2>Dibuat untuk menyelesaikan tugas besar mata kuliah BTE (IPSE UPI)</h2>
 
 Sebelum dipakai, install library servo.
 https://github.com/arduino-libraries/Servo
