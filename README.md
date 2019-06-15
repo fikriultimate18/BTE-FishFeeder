@@ -2,15 +2,15 @@
 <h2>Dibuat untuk menyelesaikan tugas besar mata kuliah BTE (IPSE UPI)</h2>
 
 <p>
-Sebelum dipakai, install library servo.
+Sebelum dipakai, install library servo.<br>
 https://github.com/arduino-libraries/Servo
 
 Pinout:
 
-Servo			Arduino
-VCC		----->	+5V
-GND		----->	GND
-PWM		----->	Digital Pin 9
+Servo			Arduino<br>
+VCC		----->	+5V<br>
+GND		----->	GND<br>
+PWM		----->	Digital Pin 9<br>
 
 
 Bebas untuk mengubah konfigurasi, ubah-ubah dari bagian:
@@ -18,9 +18,9 @@ Bebas untuk mengubah konfigurasi, ubah-ubah dari bagian:
 <i>
 //--------------------SETTING DARI SINI--------------------
 
-unsigned long selang_makan = 5000;   //satuanana ms
-int sudut = 180;                     //satuanana darajat
-int kecepatan_muter = 7;              //beuki alit beuki gancang
+unsigned long selang_makan = 5000;   //satuanana ms<br>
+int sudut = 180;                     //satuanana darajat<br>
+int kecepatan_muter = 7;             //beuki alit beuki gancang<br>
 
 //---------------------SAMPE SINI--------------------------
 </i>
