@@ -1,51 +1,75 @@
 #include <Servo.h>
 #include <EEPROM.h>
 
-Servo servoaku;  
+/*  GREETINGS!
+ *  HELO HELOW WK....
+ *  
+ *  Before using this source code, pls install the servo library from:
+ *  https://github.com/arduino-libraries/Servo
+ *  
+ *  Pinout:
+ *  
+ *  Servo                     Arduino
+ *  +5V (RED CABLE) --------> +5V
+ *  GND (BROWN CABLE) ------> GND
+ *  PWM (ORANGE CABLE) -----> Digital Pin 3
+ * 
+ *  Cheers!
+ *  
+ *  friansh.2k19
+ */
 
-int addr = 12;
-int pos = 0;   
-long runtime = 0;
-long recv_epdata = 0;
-long mkn_prvtime = 0;
+Servo mserv;
 
-//--------------------SETTING DARI SINI--------------------
+#define msrv_pin 3
+#define addr 12
 
-unsigned long selang_makan = 5000;   //satuanana ms
-int sudut = 180;                     //satuanana darajat
-int kecepatan_muter = 7;              //beuki alit beuki gancang
+uint8_t pos = 0;
 
-//---------------------SAMPE SINI--------------------------
+unsigned long runtime = 0;
+unsigned long recv_epdata = 0;
+unsigned long mkn_prvtime = 0;
+
+//------------------------EDIT FROM HERE------------------------
+
+unsigned long eat_dly = 6000;   //delay between fed period(in ms)
+uint8_t angl = 180;             //servo rotation (in degree)
+uint8_t dly_rot = 1;            //speed of rotation (delay(ms) per degree)
+
+//---------------------END OF EDITING AREA--------------------------
 
 void setup() {
-  servoaku.attach(9);
-  servoaku.write(0);
-  Serial.begin(9600);
+  mserv.attach(msrv_pin);
+  mserv.write(0);
 
-  EEPROM.get(addr, recv_epdata);
+  EEPROM.get(addr, recv_epdata);    //load runtime bfr last shtdwn
+
+  //For debugging purpose, open serial monitor
+  Serial.begin(9600);
   Serial.println("Getting old clock data....");
-  runtime = recv_epdata;
+  Serial.print(recv_epdata);
+  Serial.print(" or ");
   Serial.print(recv_epdata / 1000);
   Serial.println(" s");
 }
 
 void loop() {
-  runtime = millis();
+  runtime = millis() + recv_epdata;
   EEPROM.put(addr, runtime - mkn_prvtime);
-  
-  if(runtime - mkn_prvtime >= selang_makan){
-    mkn_prvtime = runtime;
-    
-    for (pos = 0; pos <= sudut; pos++) {
-      servoaku.write(pos);              
-      delay(kecepatan_muter);                       
+
+  if ((runtime - mkn_prvtime) >= (eat_dly + (2 * dly_rot * angl))) {
+    for (pos = 0; pos <= angl; pos++) {
+      mserv.write(pos);
+      delay(dly_rot);
     }
-    
-    for (pos = sudut; pos >= 0; pos--) { 
-      servoaku.write(pos);              
-      delay(kecepatan_muter);                      
-    }  
+
+    for (pos = angl; pos >= 0; pos--) {
+      mserv.write(pos);
+      delay(dly_rot);
+    }
+
+    mkn_prvtime = runtime;
   }
-  
+
 
 }
