@@ -1,5 +1,5 @@
 # BTE-FishFeeder
-<h2>Dibuat untuk menyelesaikan tugas besar mata kuliah BTE (IPSE UPI)</h2>
+<h3>Dibuat untuk menyelesaikan tugas besar mata kuliah BTE (IPSE UPI)</h3>
 
 <p>
 Sebelum dipakai, install library servo.<br>
