@@ -21,55 +21,60 @@
 
 Servo mserv;
 
-#define msrv_pin 3
-#define addr 12
+//defining vrbls:
 
-uint8_t pos = 0;
+#define msrv_pin  3                 //Servo pin
+#define addr      12                //EEPROM addrs to put last runtime
 
-unsigned long runtime = 0;
-unsigned long recv_epdata = 0;
-unsigned long mkn_prvtime = 0;
+int angl = 0;                       //Servo angle
+
+unsigned long runtime = 0;          //Arduino runtime
+unsigned long recv_epdata = 0;      //recvd last runtime data from EEPROM
+unsigned long fed_prvtime = 0;      //prev runtime at fed state
 
 //------------------------EDIT FROM HERE------------------------
 
-unsigned long eat_dly = 6000;   //delay between fed period(in ms)
-uint8_t angl = 180;             //servo rotation (in degree)
-uint8_t dly_rot = 1;            //speed of rotation (delay(ms) per degree)
+unsigned long eat_dly = 6 * 1000;   //delay between fed period(in ms)
+int angl_set = 180;                 //servo rotation (in degree)
+int dly_rot = 1;                    //speed of rotation (delay(ms) per degree)
 
 //---------------------END OF EDITING AREA--------------------------
 
 void setup() {
-  mserv.attach(msrv_pin);
-  mserv.write(0);
+  mserv.attach(msrv_pin);           //initialize srvo at slcted pin
+  mserv.write(0);                   //rst servo angle pos to 0
 
   EEPROM.get(addr, recv_epdata);    //load runtime bfr last shtdwn
 
   //For debugging purpose, open serial monitor
   Serial.begin(9600);
-  Serial.println("Getting old clock data....");
+  Serial.println("Welcome!!!\nservo controlled fish feeder");
+  Serial.println("prog ver alpha\n\nOld runtime data recvd....");
   Serial.print(recv_epdata);
-  Serial.print(" or ");
+  Serial.print(" ms or ");
   Serial.print(recv_epdata / 1000);
-  Serial.println(" s");
+  Serial.println(" s\n");
 }
 
 void loop() {
-  runtime = millis() + recv_epdata;
-  EEPROM.put(addr, runtime - mkn_prvtime);
+  runtime = millis() + recv_epdata;             //delay w.out delay function, so another process can run
+  EEPROM.put(addr, runtime - fed_prvtime);      //put runtime to EEPROM, data is safe from poweroff/reset
 
-  if ((runtime - mkn_prvtime) >= (eat_dly + (2 * dly_rot * angl))) {
-    for (pos = 0; pos <= angl; pos++) {
-      mserv.write(pos);
-      delay(dly_rot);
-    }
-
-    for (pos = angl; pos >= 0; pos--) {
-      mserv.write(pos);
-      delay(dly_rot);
-    }
-
-    mkn_prvtime = runtime;
+  if ((runtime - fed_prvtime) >=
+    (eat_dly + (2 * dly_rot * angl_set))) {     //anthr part of delay w.out delay function
+      Serial.println("mserv rotating...");      //for debugging purpose
+  
+      //rotating process:
+      for (angl = 0; angl <= angl_set; angl++) {
+        mserv.write(angl);
+        delay(dly_rot);
+      }
+  
+      for (angl = angl_set; angl >= 0; angl--) {
+        mserv.write(angl);
+        delay(dly_rot);
+      }
+  
+      fed_prvtime = runtime;                     //anthr part of delay w.out delay function
   }
-
-
 }
