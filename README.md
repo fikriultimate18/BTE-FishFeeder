@@ -1,6 +1,7 @@
 # BTE-FishFeeder
 <h2>Dibuat untuk menyelesaikan tugas besar mata kuliah BTE (IPSE UPI)</h2>
 
+<p>
 Sebelum dipakai, install library servo.
 https://github.com/arduino-libraries/Servo
 
@@ -30,3 +31,4 @@ Jika belum mengerti fungsi tiap-tiap baris kode, tidak direkomendasikan untuk me
 Terima kasih :) and good luck..
 
 friansh. 2019
+</p>
