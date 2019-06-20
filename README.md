@@ -1,7 +1,7 @@
-# BTE-FishFeeder
+# Simple Automatic Fish Feeder (Pemberi Pakan Ikan Otomatis Sederhana)
 <h3>Kode sumber ini dibuat untuk mendukung proyek pemberi pakan ikan otomatis. Tidak ada sensor yang diperlukan karena program ini hanya memakai prinsip jeda antar pemberian waktu makan. Aktuator yang dibutuhkan adalah satu buah servo.</h3>
 
-<h4>Pinout terlampir di dalam kode sumber.</h4>
+<h4>Silahkan gunakan arduino tipe apapun. Arduino yang saya pakai untuk membuat kode sumber ini adalah Arduino Uno. Pinout terlampir di dalam kode sumber.</h4>
 
 <p>
 Sebelum dipakai, install library servo.<br>
