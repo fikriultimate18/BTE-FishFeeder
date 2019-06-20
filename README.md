@@ -4,7 +4,7 @@
 <h4>Silahkan gunakan arduino tipe apapun. Arduino yang saya pakai untuk membuat kode sumber ini adalah Arduino Uno. Pinout terlampir di dalam kode sumber.</h4>
 
 <p>
-Salah satu fitur dari kode sumber ini adalah jika Arduino mati, maka waktu hidup terakhir akan tersimpan dalam memori sehingga perhitungan waktu mundur untuk pemberian makan selanjutnya tidak ter-<i>reset</i><br>.
+Salah satu fitur dari kode sumber ini adalah jika Arduino mati, maka waktu hidup terakhir akan tersimpan dalam memori sehingga perhitungan waktu mundur untuk pemberian makan selanjutnya tidak ter-<i>reset</i>.<br>
   
 Sebelum dipakai, install library servo.<br>
 https://github.com/arduino-libraries/Servo
